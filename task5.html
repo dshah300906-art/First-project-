@@ -1,0 +1,45 @@
+
+<script>
+
+let size = 50;
+let timer;
+
+function increase(){
+    clearInterval(timer);
+    timer = setInterval(function(){
+
+        if(size >= 200){
+            clearInterval(timer);4
+        } else {
+            size++;
+            document.getElementById("text").style.fontSize = size + "px";
+        }
+
+    },100);
+}
+
+function decrease(){
+    clearInterval(timer);
+    timer = setInterval(function(){
+
+        if(size <= 20){
+            clearInterval(timer);
+        } else {
+            size--;
+            document.getElementById("text").style.fontSize = size + "px";
+        }
+
+    },100);
+}
+
+function stopFont(){
+    clearInterval(timer);
+}
+</script>
+
+<body>
+    <h1 id="text" style="font-size:50px;">Font Size Control</h1>
+    <button onclick="increase()">Increase</button>
+<button onclick="stopFont()">Stop</button>
+<button onclick="decrease()">Decrease</button>
+</body>
