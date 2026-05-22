@@ -37,7 +37,7 @@ function ProductCard(p) {
 
       <p>Price: ₹{p.price}</p>
 
-      <p>Rating: ⭐ {p.rating}</p>
+      <p>Rating: {p.rating}</p>
     </div>
   );
 }
