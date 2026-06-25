@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:5173/ -->
+<html lang="en" style="--active-color-1: var(--color-rag-primary); --active-color-2: var(--color-rag-secondary); --active-glow: rgba(0, 242, 254, 0.25);"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="module" src="http://localhost:5173/@vite/client"></script>
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBot Monorepo - Interactive 3D Telegram Bot Ecosystem</title>
+    <meta name="description" content="An interactive, high-performance showcase of the SmartBot Telegram Bot ecosystem, featuring Anjani and the AI RAG PDF Chatbot.">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./SmartBot_files/css2" rel="stylesheet">
+  <style type="text/css" data-vite-dev-id="C:/Users/Dhruvi Shah/SmartBot_Tg/landing-page/src/style.css">/* Reset and Global Styles */
+:root {
+  /* Fonts */
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Theme Palette */
+  --bg-dark: #02020a;
+  --bg-card: rgba(8, 8, 24, 0.45);
+  --bg-card-hover: rgba(16, 16, 44, 0.6);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-active: rgba(255, 255, 255, 0.2);
+
+  /* Neon Glow Accents */
+  --color-rag-primary: #00f2fe;
+  --color-rag-secondary: #4facfe;
+  --color-anjani-primary: #d946ef;
+  --color-anjani-secondary: #8b5cf6;
+  
+  /* Current active theme colors (swapped dynamically or default to RAG) */
+  --active-color-1: var(--color-rag-primary);
+  --active-color-2: var(--color-rag-secondary);
+  --active-glow: rgba(0, 242, 254, 0.25);
+
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  
+  --shadow-neon: 0 0 25px var(--active-glow);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--active-color-1);
+  box-shadow: 0 0 10px var(--active-color-1);
+}
+
+/* 3D WebGL Canvas fixed in background */
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+  background-color: var(--bg-dark);
+}
+
+/* Ambient Glow Orbs in Background */
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(140px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.45;
+  transition: all 1s ease-in-out;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  top: -10%;
+  right: -10%;
+  background: radial-gradient(circle, var(--active-color-1) 0%, transparent 70%);
+  animation: float-orb 15s infinite alternate;
+}
+
+.orb-2 {
+  width: 600px;
+  height: 600px;
+  bottom: -20%;
+  left: -10%;
+  background: radial-gradient(circle, var(--active-color-2) 0%, transparent 70%);
+  animation: float-orb 20s infinite alternate-reverse;
+}
+
+@keyframes float-orb {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(50px, 80px) scale(1.1);
+  }
+}
+
+/* App Container Layout */
+.app-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Glassmorphism Panel Template */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-color-active);
+}
+
+/* Typography styles */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--active-color-1);
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.05);
+  transition: all 0.5s ease;
+}
+
+.highlight-text {
+  background: linear-gradient(135deg, var(--active-color-1) 0%, var(--active-color-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-primary-sm, .btn-secondary-sm {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.btn-primary {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, var(--active-color-1) 0%, var(--active-color-2) 100%);
+  color: #000;
+  font-weight: 700;
+  border: none;
+  box-shadow: var(--shadow-neon);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 35px var(--active-glow);
+}
+
+.btn-secondary {
+  padding: 14px 28px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-color-active);
+  transform: translateY(-2px);
+}
+
+.btn-primary-sm {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, var(--active-color-1) 0%, var(--active-color-2) 100%);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  box-shadow: 0 0 15px var(--active-glow);
+}
+
+.btn-primary-sm:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 25px var(--active-glow);
+}
+
+.btn-secondary-sm {
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.btn-secondary-sm:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-color-active);
+}
+
+.btn-icon svg {
+  margin-left: 8px;
+  transition: transform 0.25s ease;
+}
+
+.btn-icon:hover svg {
+  transform: translateX(4px);
+}
+
+/* Header Styles */
+.cyber-header {
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--active-color-1) 0%, var(--active-color-2) 100%);
+  border-radius: 8px;
+  box-shadow: 0 0 12px var(--active-color-1);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-icon::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: rotate(45deg);
+  animation: shine-logo 4s infinite;
+}
+
+@keyframes shine-logo {
+  0% { transform: translate(-100%, -100%) rotate(45deg); }
+  50%, 100% { transform: translate(100%, 100%) rotate(45deg); }
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+}
+
+.logo-text span {
+  color: var(--active-color-1);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--text-primary);
+}
+
+/* Hero Section */
+.hero-section {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 100px 0;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 650px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  font-weight: 400;
+  max-width: 550px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+}
+
+/* Scroll Mouse Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scroll-mouse {
+  width: 24px;
+  height: 40px;
+  border: 2px solid var(--text-secondary);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-wheel {
+  width: 4px;
+  height: 8px;
+  background: var(--active-color-1);
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll-wheel-anim 1.8s infinite;
+}
+
+@keyframes scroll-wheel-anim {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  80% { transform: translate(-50%, 15px); opacity: 0; }
+  100% { transform: translate(-50%, 0); opacity: 0; }
+}
+
+.scroll-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Sections Global */
+section {
+  padding: 120px 0;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 60px auto;
+}
+
+.section-title {
+  font-size: 2.75rem;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* Ecosystem Tabs */
+.bot-selector-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.tab-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border-color: var(--border-color-active);
+}
+
+.tab-btn.active {
+  color: var(--text-primary);
+  border-color: var(--active-color-1);
+  box-shadow: 0 0 20px var(--active-glow);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.dot-rag {
+  background-color: var(--color-rag-primary);
+  box-shadow: 0 0 10px var(--color-rag-primary);
+}
+
+.dot-anjani {
+  background-color: var(--color-anjani-primary);
+  box-shadow: 0 0 10px var(--color-anjani-primary);
+}
+
+.tab-btn.active .tab-dot::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--active-color-1);
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Bot Detail Grid */
+.bot-details-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
+}
+
+.bot-info-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.bot-title {
+  font-size: 2.25rem;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bot-description {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 32px;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+  border-color: var(--active-color-1);
+  box-shadow: 0 0 12px var(--active-glow);
+  transform: translateY(-2px);
+}
+
+.feature-text h4 {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.feature-text p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.bot-action-group {
+  display: flex;
+  gap: 16px;
+}
+
+.tech-spec-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-title {
+  font-size: 1.4rem;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.spec-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  padding-bottom: 8px;
+}
+
+.spec-label {
+  color: var(--text-secondary);
+}
+
+.spec-val {
+  font-weight: 500;
+}
+
+.highlight-val {
+  color: var(--active-color-1);
+  font-weight: 600;
+}
+
+.directory-tree {
+  padding: 16px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.tree-title {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.tree-code {
+  font-family: 'Consolas', 'Fira Code', Monaco, monospace;
+  font-size: 0.85rem;
+  color: #c7d2fe;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Chat Simulator Section */
+.simulator-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.simulator-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.control-title {
+  font-size: 1.4rem;
+}
+
+.control-text {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.control-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.control-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  text-align: left;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--active-color-1);
+  transform: translateX(4px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.system-logs-panel {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.logs-title {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.logs-content {
+  font-family: 'Consolas', 'Fira Code', Monaco, monospace;
+  font-size: 0.8rem;
+  color: #10b981; /* green logs */
+  height: 120px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.log-line {
+  white-space: pre-wrap;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Phone Mockup styles */
+.phone-mockup {
+  width: 320px;
+  height: 600px;
+  background: #0f1026;
+  border: 12px solid #232549;
+  border-radius: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.05);
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.phone-speaker {
+  width: 60px;
+  height: 4px;
+  background: #232549;
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.phone-home-button {
+  width: 40px;
+  height: 4px;
+  background: #232549;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.phone-screen {
+  flex: 1;
+  border: none;
+  border-radius: 28px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0c0d1e;
+}
+
+.telegram-header {
+  height: 56px;
+  background: rgba(22, 23, 54, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.tg-back-btn {
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.tg-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--active-color-1) 0%, var(--active-color-2) 100%);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+.tg-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tg-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tg-status {
+  font-size: 0.7rem;
+  color: var(--active-color-1);
+}
+
+.telegram-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Telegram Chat Bubbles */
+.message {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.message.bot-msg {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.message.user-msg {
+  background: linear-gradient(135deg, rgba(var(--active-color-1), 0.1) 0%, rgba(var(--active-color-2), 0.25) 100%);
+  border: 1px solid var(--border-color-active);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.message.system-msg {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  align-self: center;
+  text-align: center;
+  border-radius: 8px;
+  max-width: 90%;
+  border: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.message code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: var(--active-color-1);
+}
+
+/* Typing indicator bubble */
+.message.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 14px;
+}
+
+.dot-bounce {
+  width: 6px;
+  height: 6px;
+  background: var(--text-secondary);
+  border-radius: 50%;
+  animation: dot-bounce-anim 1.4s infinite ease-in-out both;
+}
+
+.dot-bounce:nth-child(1) { animation-delay: -0.32s; }
+.dot-bounce:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes dot-bounce-anim {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+.telegram-input-bar {
+  height: 48px;
+  background: rgba(16, 17, 39, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 8px;
+}
+
+.telegram-input-bar input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 6px 12px;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.tg-send-btn {
+  background: none;
+  border: none;
+  color: var(--active-color-1);
+  cursor: pointer;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+}
+
+/* Configurator Grid */
+.config-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-title {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.form-input, .form-select {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: var(--active-color-1);
+  box-shadow: 0 0 10px var(--active-glow);
+}
+
+.config-output {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+.output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.output-filename {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.btn-copy {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-copy:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--active-color-1);
+}
+
+.env-code-block {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-y: auto;
+  height: 250px;
+}
+
+.env-code-block code {
+  font-family: 'Consolas', 'Fira Code', Monaco, monospace;
+  font-size: 0.85rem;
+  color: #38bdf8;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.output-footer-tip {
+  font-size: 0.8rem;
+  margin-top: 16px;
+}
+
+/* Deployment steps styling */
+.deploy-steps-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.deploy-step {
+  position: relative;
+  overflow: hidden;
+}
+
+.step-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.08) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.deploy-step h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.deploy-step p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  min-height: 48px;
+}
+
+.code-snippet-box {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-family: 'Consolas', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: var(--active-color-1);
+  overflow-x: auto;
+}
+
+/* Cyber Footer */
+.cyber-footer {
+  padding: 60px 0 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border-color) 20%, var(--border-color) 80%, transparent 100%);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copyright {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--active-color-1);
+}
+
+/* Responsive design */
+@media (max-width: 968px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .bot-details-grid, .simulator-container, .config-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .deploy-steps-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .header-nav {
+    display: none; /* simple burger menu / hide on mobile for premium simplicity */
+  }
+}
+</style></head>
+  <body>
+    <!-- 3D Canvas Backdrop -->
+    <canvas class="webgl" id="three-canvas" data-engine="three.js r185" width="1910" height="915" style="width: 1528px; height: 732px;"></canvas>
+
+    <!-- App Container -->
+    <main class="app-container">
+      <!-- Glow effects in background -->
+      <div class="glow-orb orb-1"></div>
+      <div class="glow-orb orb-2"></div>
+
+      <!-- Cyber Header -->
+      <header class="cyber-header" id="main-header">
+        <div class="header-logo">
+          <div class="logo-icon"></div>
+          <span class="logo-text">SMARTBOT<span>.TG</span></span>
+        </div>
+        <nav class="header-nav">
+          <a href="http://localhost:5173/#hero" class="nav-link active">Home</a>
+          <a href="http://localhost:5173/#bots" class="nav-link">Ecosystem</a>
+          <a href="http://localhost:5173/#simulator" class="nav-link">Live Demo</a>
+          <a href="http://localhost:5173/#configurator" class="nav-link">Configurator</a>
+          <a href="http://localhost:5173/#deploy" class="nav-link btn-secondary-sm">Deploy Now</a>
+        </nav>
+      </header>
+
+      <!-- Hero Section -->
+      <section id="hero" class="hero-section">
+        <div class="hero-content">
+          <div class="badge">Monorepo Ecosystem</div>
+          <h1 class="hero-title">
+            Next-Gen Telegram <br>
+            <span class="highlight-text">Bot Framework</span>
+          </h1>
+          <p class="hero-subtitle">
+            A fully isolated, high-performance Telegram bot ecosystem. Powering intelligent group management and instant PDF retrieval-augmented chat (RAG).
+          </p>
+          <div class="hero-actions">
+            <a href="http://localhost:5173/#bots" class="btn-primary" id="explore-bots-btn">Explore Ecosystem</a>
+            <a href="http://localhost:5173/#simulator" class="btn-secondary" id="try-demo-btn">Try Simulator</a>
+          </div>
+        </div>
+
+        <div class="scroll-indicator">
+          <span class="scroll-mouse">
+            <span class="scroll-wheel"></span>
+          </span>
+          <span class="scroll-text">Scroll to explore</span>
+        </div>
+      </section>
+
+      <!-- Bots Showcase / Ecosystem -->
+      <section id="bots" class="bots-section">
+        <div class="section-header">
+          <div class="badge">Ecosystem</div>
+          <h2 class="section-title">Isolated Microservice Bots</h2>
+          <p class="section-desc">Each bot operates in a self-contained container environment, offering dedicated performance and total privacy.</p>
+        </div>
+
+        <!-- Bot Toggle Tabs -->
+        <div class="bot-selector-tabs" id="bot-tabs">
+          <button class="tab-btn active" data-bot="rag" id="tab-btn-rag">
+            <span class="tab-dot dot-rag"></span>
+            AI RAG PDF Chatbot
+          </button>
+          <button class="tab-btn" data-bot="anjani" id="tab-btn-anjani">
+            <span class="tab-dot dot-anjani"></span>
+            Anjani Group Bot
+          </button>
+        </div>
+
+        <!-- Bot Detail Grid -->
+        <div class="bot-details-grid">
+          <!-- Left side: 3D Camera focus instructions & highlights -->
+          <div class="bot-info-card glass-panel" id="bot-info-card">
+            <!-- Dynamic Content Injected via main.js -->
+            <div id="bot-info-dynamic">
+              <h3 class="bot-title" id="dyn-bot-title">AI RAG PDF Chatbot</h3>
+              <p class="bot-description" id="dyn-bot-desc">A state-of-the-art conversational agent enabling users to upload PDF documents and run real-time Q&amp;A queries. Powered by LangChain, OpenAI, and a Supabase Vector Store.</p>
+              
+              <div class="features-list" id="dyn-bot-features">
+    <div class="feature-item">
+      <div class="feature-icon">✨</div>
+      <div class="feature-text">
+        <h4>Multi-User Isolation</h4>
+        <p>Each user's vectors are tagged with their Telegram ID. Queries only search their own documents, ensuring complete data privacy.</p>
+      </div>
+    </div>
+  
+    <div class="feature-item">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-text">
+        <h4>Flexible LLM Routing</h4>
+        <p>Easily switch models and API keys (OpenAI, Gemini, Groq, or OpenRouter) dynamically inside the environment configuration.</p>
+      </div>
+    </div>
+  
+    <div class="feature-item">
+      <div class="feature-icon">📚</div>
+      <div class="feature-text">
+        <h4>Citations and Page Logs</h4>
+        <p>Every response outputs exact source filenames and page numbers, enabling transparent facts verification and zero hallucinations.</p>
+      </div>
+    </div>
+  </div>
+
+              <div class="bot-action-group">
+                <a href="http://localhost:5173/#simulator" class="btn-primary-sm btn-icon" id="dyn-bot-sim-link">
+                  Open Simulator
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                </a>
+                <a href="http://localhost:5173/#configurator" class="btn-secondary-sm" id="dyn-bot-cfg-link">Configure Keys</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right side: Tech Stack specs -->
+          <div class="tech-spec-card glass-panel" id="tech-spec-card">
+            <h3 class="spec-title">Architecture Specs</h3>
+            <div class="spec-list" id="dyn-bot-specs">
+    <div class="spec-row">
+      <span class="spec-label">Language</span>
+      <span class="spec-val highlight-val">Python 3.10+</span>
+    </div>
+  
+    <div class="spec-row">
+      <span class="spec-label">Vector Database</span>
+      <span class="spec-val ">Supabase (pgvector)</span>
+    </div>
+  
+    <div class="spec-row">
+      <span class="spec-label">RAG Stack</span>
+      <span class="spec-val ">LangChain, OpenAI Embeddings</span>
+    </div>
+  
+    <div class="spec-row">
+      <span class="spec-label">Deployment</span>
+      <span class="spec-val ">Docker Compose (Polling mode)</span>
+    </div>
+  </div>
+            <div class="directory-tree glass-panel">
+              <h4 class="tree-title">Folder Structure</h4>
+              <pre class="tree-code" id="dyn-bot-tree">bots/ai_chat_bot/
+├── telegram_bot/
+│   ├── handlers/
+│   │   ├── start.py
+│   │   ├── upload.py
+│   │   └── question.py
+│   ├── services/
+│   │   ├── embeddings.py
+│   │   ├── vector_store.py
+│   │   └── rag_chain.py
+│   └── utils/
+├── requirements.txt
+└── Dockerfile</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Telegram Chat Simulator Section -->
+      <section id="simulator" class="simulator-section">
+        <div class="section-header">
+          <div class="badge">Interactive Simulation</div>
+          <h2 class="section-title">Experience the Bots Live</h2>
+          <p class="section-desc">Interact with a simulated Telegram client and preview how the bots parse inputs, process PDFs, and respond.</p>
+        </div>
+
+        <div class="simulator-container">
+          <!-- Left side: Simulator controls / Prompts -->
+          <div class="simulator-controls glass-panel">
+            <h3 class="control-title">Select Interaction</h3>
+            <p class="control-text">Click on any sample actions below to trigger a mock Telegram dialog in the phone container:</p>
+            
+            <div class="control-group" id="sim-controls-rag" style="display: flex;">
+              <span class="control-label">AI RAG PDF Chatbot Actions</span>
+              <button class="control-btn" data-action="rag-start">🤖 Start Bot (/start)</button>
+              <button class="control-btn" data-action="rag-upload">📄 Upload PDF Document</button>
+              <button class="control-btn" data-action="rag-ask">💬 Ask Question about PDF</button>
+              <button class="control-btn" data-action="rag-reset">🔄 Reset Session (/reset)</button>
+            </div>
+
+            <div class="control-group" id="sim-controls-anjani" style="display: none;">
+              <span class="control-label">Anjani Admin Actions</span>
+              <button class="control-btn" data-action="anjani-start">🛡️ Welcome Message (/start)</button>
+              <button class="control-btn" data-action="anjani-warn">⚠️ Warn Spammer (/warn)</button>
+              <button class="control-btn" data-action="anjani-stats">📈 Group Stats (/stats)</button>
+            </div>
+
+            <div class="system-logs-panel glass-panel">
+              <h4 class="logs-title">Microservice Server Logs</h4>
+              <div class="logs-content" id="server-logs"><div class="log-line text-muted">[SYSTEM] Switched bot mode to: rag</div></div>
+            </div>
+          </div>
+
+          <!-- Right side: Simulated Phone mockup -->
+          <div class="phone-mockup">
+            <div class="phone-speaker"></div>
+            <div class="phone-screen glass-panel">
+              <!-- Telegram Header -->
+              <div class="telegram-header">
+                <div class="tg-back-btn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+                </div>
+                <div class="tg-avatar" id="sim-bot-avatar" style="background: linear-gradient(135deg, var(--color-rag-primary) 0%, var(--color-rag-secondary) 100%);">AI</div>
+                <div class="tg-info">
+                  <span class="tg-name" id="sim-bot-name">AI RAG PDF Chatbot</span>
+                  <span class="tg-status" id="sim-bot-status" style="color: var(--color-rag-primary);">bot</span>
+                </div>
+              </div>
+
+              <!-- Telegram Chat Body -->
+              <div class="telegram-messages" id="chat-messages">
+    <div class="message system-msg">
+      <span>Switched simulator to AI RAG Chatbot. Click any button on the left to see actions!</span>
+    </div>
+  </div>
+
+              <!-- Telegram Input Bar -->
+              <div class="telegram-input-bar">
+                <input type="text" placeholder="Type a message..." id="chat-input" disabled="">
+                <button class="tg-send-btn" disabled="" id="send-message-btn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+                </button>
+              </div>
+            </div>
+            <div class="phone-home-button"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Env Configurator -->
+      <section id="configurator" class="config-section">
+        <div class="section-header">
+          <div class="badge">Quick Configuration</div>
+          <h2 class="section-title">Visual .env Generator</h2>
+          <p class="section-desc">Generate your deployment config file in real-time. Just select a bot and fill in key details to compile your secure environment variables.</p>
+        </div>
+
+        <div class="config-grid">
+          <!-- Left: Input form -->
+          <div class="config-form glass-panel">
+            <h3 class="form-title">Parameters</h3>
+            
+            <div class="form-group">
+              <label for="cfg-bot-select">Target Bot</label>
+              <select id="cfg-bot-select" class="form-select">
+                <option value="rag">AI RAG PDF Chatbot (ai_chat_bot)</option>
+                <option value="anjani">Anjani Admin Bot (Anjani)</option>
+              </select>
+            </div>
+
+            <!-- RAG Bot fields -->
+            <div id="cfg-fields-rag" style="display: block;">
+              <div class="form-group">
+                <label for="cfg-tg-token-rag">TELEGRAM_BOT_TOKEN</label>
+                <input type="password" id="cfg-tg-token-rag" class="form-input" placeholder="e.g. 123456:ABC-def1234...">
+              </div>
+              <div class="form-group">
+                <label for="cfg-supabase-url">SUPABASE_URL</label>
+                <input type="text" id="cfg-supabase-url" class="form-input" placeholder="https://your-project.supabase.co">
+              </div>
+              <div class="form-group">
+                <label for="cfg-supabase-key">SUPABASE_SERVICE_ROLE_KEY</label>
+                <input type="password" id="cfg-supabase-key" class="form-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="cfg-llm-provider">LLM Provider</label>
+                  <select id="cfg-llm-provider" class="form-select">
+                    <option value="openai">OpenAI</option>
+                    <option value="gemini">Gemini</option>
+                    <option value="groq">Groq</option>
+                    <option value="openrouter">OpenRouter</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="cfg-llm-model">Model Name</label>
+                  <input type="text" id="cfg-llm-model" class="form-input" value="gpt-4o-mini">
+                </div>
+              </div>
+            </div>
+
+            <!-- Anjani Bot fields -->
+            <div id="cfg-fields-anjani" style="display: none;">
+              <div class="form-group">
+                <label for="cfg-tg-token-anjani">TELEGRAM_BOT_TOKEN</label>
+                <input type="password" id="cfg-tg-token-anjani" class="form-input" placeholder="e.g. 987654:XYZ-abc7890...">
+              </div>
+              <div class="form-group">
+                <label for="cfg-db-url">POSTGRES_DB_URL</label>
+                <input type="password" id="cfg-db-url" class="form-input" placeholder="postgresql://user:pass@localhost:5432/anjani">
+              </div>
+              <div class="form-group">
+                <label for="cfg-admin-id">ADMIN_TELEGRAM_ID</label>
+                <input type="text" id="cfg-admin-id" class="form-input" placeholder="e.g. 543210123">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Output Env block -->
+          <div class="config-output glass-panel">
+            <div class="output-header">
+              <span class="output-filename">config.env</span>
+              <button class="btn-copy" id="btn-copy-env">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copy Config
+              </button>
+            </div>
+            <pre class="env-code-block"><code id="env-output-code"># AI RAG PDF Chatbot Configuration
+TELEGRAM_BOT_TOKEN=<telegram_bot_token>
+SUPABASE_URL=<supabase_url>
+SUPABASE_SERVICE_ROLE_KEY=<supabase_service_role_key>
+
+# LLM Routing Setup
+LLM_PROVIDER=openai
+LLM_MODEL=gpt-4o-mini
+
+# RAG Splitting Parameters
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
+RETRIEVER_K=5</supabase_service_role_key></supabase_url></telegram_bot_token></code></pre>
+            <div class="output-footer-tip text-muted">
+              ℹ️ Copy this output, save it as <code>config.env</code> in the bot's root directory, and launch.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deployment Quickstart Section -->
+      <section id="deploy" class="deploy-section">
+        <div class="section-header">
+          <div class="badge">Deployment</div>
+          <h2 class="section-title">Ready in Minutes</h2>
+          <p class="section-desc">Spin up any bot using Docker Compose in a single terminal command. Zero global dependencies required.</p>
+        </div>
+
+        <div class="deploy-steps-container">
+          <div class="deploy-step glass-panel">
+            <div class="step-num">01</div>
+            <h3>Configure Environment</h3>
+            <p>Generate and paste your variables into the config file within the specific bot folder:</p>
+            <div class="code-snippet-box">
+              <code>cp config.env_sample config.env</code>
+            </div>
+          </div>
+
+          <div class="deploy-step glass-panel">
+            <div class="step-num">02</div>
+            <h3>Launch via Docker</h3>
+            <p>Navigate to the bot subdirectory and run the container system locally:</p>
+            <div class="code-snippet-box">
+              <code>docker-compose up --build -d</code>
+            </div>
+          </div>
+
+          <div class="deploy-step glass-panel">
+            <div class="step-num">03</div>
+            <h3>Validate Telegram</h3>
+            <p>Message your bot on Telegram and run the start script to verify functionality:</p>
+            <div class="code-snippet-box">
+              <code>/start</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cyber Footer -->
+      <footer class="cyber-footer">
+        <div class="footer-divider"></div>
+        <div class="footer-content">
+          <p class="footer-copyright">© 2026 SmartBot Ecosystem. Powered by LangChain, Supabase, and Three.js.</p>
+          <div class="footer-links">
+            <a href="https://github.com/" target="_blank">Monorepo GitHub</a>
+            <a href="https://telegram.org/" target="_blank">Telegram Docs</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Main Module Script -->
+    <script type="module" src="http://localhost:5173/src/main.js"></script>
+  
+
+</body></html>
